@@ -1,0 +1,8 @@
+gordon_bombay: 
+  target: prod
+  outputs: 
+    prod: 
+      type: duckdb 
+      path: filter_data_swamp.duckdb
+      schema: source_data
+      threads: 4

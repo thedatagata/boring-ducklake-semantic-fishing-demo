@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: duck_pond
+    description: Raw Google Analytics data loaded through DLT pipeline # Adjust if your duckdb path is different
+    schema: source_data               # This matches your dataset_name in the pipeline
+    tables:
+      - name: load
+        description: Root table containing Google Analytics session data including visitor information, device details, and session metrics
+        columns:
+          - name: _dlt_id
+          - name: visit_id 
+          - name: full_visitor_id 
+          - name: visit_number
+          - name: visit_start_time
+          - name: date 
+          - name: device 
+          - name: geo_network
+          - name: totals
+          - name: traffic_source
+      - name: load__hits
+        description: Table containing Google Analytics pageview data
+        columns:
+          - name: _dlt_parent_id
+          - name: _dlt_list_idx
+          - name: _dlt_id
+          - name: time 
+          - name: minute
+          - name: hour
+          - name: hit_number 
+          - name: type 
+          - name: is_entrance 
+          - name: is_interaction 
+          - name: is_exit
+          - name: e_commerce_action__action_type 
+          - name: page__page_path

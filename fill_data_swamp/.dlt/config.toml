@@ -1,0 +1,24 @@
+[sources.filesystem]
+bucket_url = "/Users/datagata/Desktop/data_gata/swamp_life/demos/dlt_ducklake_rill/rill_demo_data_prep/data/landing_zone/"
+file_glob = "*.csv"
+
+[destination.filesystem]
+bucket_url = "gs://boring-dlt-duckdb-demo/raw_partitioned/"
+
+[extract.data_writer]
+file_max_bytes = 5_000_000    # 5MB chunks
+file_max_items = 5000         # 5k items per file
+buffer_max_items = 2500       # Smaller buffer
+
+[normalize]
+workers = 2                   # Reduced worker count
+start_method = "spawn"        # Safer process creation
+max_parallel_items = 10       # Limit parallel processing
+
+[normalize.data_writer]
+file_max_bytes = 2_500_000   # 2.5MB chunks
+file_max_items = 2500        # 2.5k items per file
+buffer_max_items = 1000      # Minimal buffer size
+
+[load]
+workers = 2     

@@ -1,0 +1,72 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+.ipynb_checkpoints/
+
+# Secrets and credentials - CRITICAL: Never commit these!
+**/.dlt/secrets.toml
+**/secrets.toml
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+service-account*.json
+
+# Data files (large and potentially sensitive)
+data/*
+*.csv
+raw_partitioned/
+duck_lake.files/
+
+# Database files
+*.duckdb
+*.duckdb.wal
+*.sqlite
+*.sqlite3
+*.db
+
+# Log files
+*.log
+logs/
+
+# dbt artifacts
+**/dbt_packages/
+**/target/
+**/dbt_modules/
+**/logs/
+
+# dlt artifacts
+.dlt/pipeline_storage/
+.dlt/.pipelines/
+.dlt/*.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Generated visualizations (optional - remove if you want to commit them)
+*.png
+*.jpg
+*.jpeg
+!../visualization_example.png
+
+# Temporary files
+*.tmp
+*.bak
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
