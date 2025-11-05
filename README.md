@@ -27,6 +27,91 @@ A comprehensive data pipeline for processing Google Analytics Customer Revenue d
 
 This project processes the Google Analytics Customer Revenue Prediction dataset from [Kaggle](https://www.kaggle.com/competitions/ga-customer-revenue-prediction) through a multi-stage data pipeline. It transforms raw CSV data into structured fact tables, exports them to DuckLake/MotherDuck, and provides a semantic layer for easy querying and analysis.
 
+## Example Analysis
+
+## Available Metrics
+
+### Dimensions (22 total)
+
+#### Identity
+- `session_id` - Unique session identifier
+- `user_id` - Unique visitor identifier
+- `session_number` - Sequential number for user
+
+#### Time
+- `session_date` - Date of session
+- `session_start_time` - Session timestamp
+
+#### Device
+- `device_browser` - Browser used
+- `device_os` - Operating system
+- `device_category` - desktop/mobile/tablet
+- `is_mobile` - Boolean mobile flag
+
+#### Geography
+- `continent` - Geographic continent
+- `country` - Country name
+
+#### Traffic
+- `traffic_source` - Traffic source (google, direct, etc.)
+- `traffic_medium` - Medium (organic, cpc, referral)
+- `campaign` - Marketing campaign name
+
+### Measures (21 total)
+
+#### Volume
+- `session_count` - Total sessions
+- `user_count` - Unique users
+- `new_users` - New user sessions
+
+#### Engagement
+- `total_pageviews` - Sum of pageviews
+- `avg_pageviews` - Average pageviews per session
+- `total_time_on_site` - Total time in seconds
+- `avg_time_on_site` - Average session duration
+
+#### Revenue
+- `total_revenue` - Sum of transaction revenue (in micros)
+
+## Example Analysis
+
+### Traffic Source Revenue Analysis
+
+Using the semantic layer, we can perform sophisticated analyses to understand traffic performance. Here's an example analyzing revenue by traffic source and medium:
+
+![screenshot](visualization_example.png)
+
+#### Key Insights from the Analysis
+
+**1. Direct Traffic Dominates Everything**
+- 498 sessions generating $51,064.95 in revenue
+- Revenue per session: $102.54
+- Represents 97.8% of all revenue
+
+**2. High-Value but Low-Volume Referrals**
+- `sites.google.com`: $119.99/session (but only 1 session)
+- `l.facebook.com`: $92.97/session (2 sessions)
+- `groups.google.com`: $52.95/session (1 session)
+
+**3. The Volume vs Quality Tradeoff**
+
+The bubble chart (right panel) shows the classic analytics dilemma: direct traffic has both high volume AND high conversion quality. The referral sources show promise but need significantly more volume to validate their performance.
+
+#### Strategic Questions This Raises
+
+**What's driving direct traffic?** This unusually high direct traffic could indicate:
+- Email campaigns not properly tagged
+- Mobile app traffic
+- Strong brand recognition with direct URL entry
+- Potential tracking implementation issues
+
+**Are the single-session sources outliers?** With only 1-2 sessions, sources like `sites.google.com` might be statistical noise rather than true indicators of quality traffic.
+
+**Where's your organic/paid search?** The complete absence of organic or CPC traffic is notable. Possible explanations:
+- Not running SEO/SEM campaigns
+- Tracking not properly configured for these channels
+- Operating in a niche where direct/referral is genuinely the primary acquisition method
+
 ## Architecture
 
 ```
@@ -347,89 +432,6 @@ Created by `filter_data_swamp/data_swamp_models/models/sources/src_sessions_fct.
 - Geo fields: `continent`, `sub_continent`, `country`
 - Totals: `visits`, `hits`, `pageviews`, `time_on_site`, `new_visits`, `transaction_revenue`
 - Traffic: `referrer`, `source`, `medium`, `campaign`
-
-## Available Metrics
-
-### Dimensions (22 total)
-
-#### Identity
-- `session_id` - Unique session identifier
-- `user_id` - Unique visitor identifier
-- `session_number` - Sequential number for user
-
-#### Time
-- `session_date` - Date of session
-- `session_start_time` - Session timestamp
-
-#### Device
-- `device_browser` - Browser used
-- `device_os` - Operating system
-- `device_category` - desktop/mobile/tablet
-- `is_mobile` - Boolean mobile flag
-
-#### Geography
-- `continent` - Geographic continent
-- `country` - Country name
-
-#### Traffic
-- `traffic_source` - Traffic source (google, direct, etc.)
-- `traffic_medium` - Medium (organic, cpc, referral)
-- `campaign` - Marketing campaign name
-
-### Measures (21 total)
-
-#### Volume
-- `session_count` - Total sessions
-- `user_count` - Unique users
-- `new_users` - New user sessions
-
-#### Engagement
-- `total_pageviews` - Sum of pageviews
-- `avg_pageviews` - Average pageviews per session
-- `total_time_on_site` - Total time in seconds
-- `avg_time_on_site` - Average session duration
-
-#### Revenue
-- `total_revenue` - Sum of transaction revenue (in micros)
-
-## Example Analysis
-
-### Traffic Source Revenue Analysis
-
-Using the semantic layer, we can perform sophisticated analyses to understand traffic performance. Here's an example analyzing revenue by traffic source and medium:
-
-![Traffic Source Revenue Analysis](../visualization_example.png)
-
-#### Key Insights from the Analysis
-
-**1. Direct Traffic Dominates Everything**
-- 498 sessions generating $51,064.95 in revenue
-- Revenue per session: $102.54
-- Represents 97.8% of all revenue
-
-**2. High-Value but Low-Volume Referrals**
-- `sites.google.com`: $119.99/session (but only 1 session)
-- `l.facebook.com`: $92.97/session (2 sessions)
-- `groups.google.com`: $52.95/session (1 session)
-
-**3. The Volume vs Quality Tradeoff**
-
-The bubble chart (right panel) shows the classic analytics dilemma: direct traffic has both high volume AND high conversion quality. The referral sources show promise but need significantly more volume to validate their performance.
-
-#### Strategic Questions This Raises
-
-**What's driving direct traffic?** This unusually high direct traffic could indicate:
-- Email campaigns not properly tagged
-- Mobile app traffic
-- Strong brand recognition with direct URL entry
-- Potential tracking implementation issues
-
-**Are the single-session sources outliers?** With only 1-2 sessions, sources like `sites.google.com` might be statistical noise rather than true indicators of quality traffic.
-
-**Where's your organic/paid search?** The complete absence of organic or CPC traffic is notable. Possible explanations:
-- Not running SEO/SEM campaigns
-- Tracking not properly configured for these channels
-- Operating in a niche where direct/referral is genuinely the primary acquisition method
 
 #### Generating This Analysis
 
