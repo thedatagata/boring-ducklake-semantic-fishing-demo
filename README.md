@@ -79,7 +79,7 @@ This project processes the Google Analytics Customer Revenue Prediction dataset 
 
 Using the semantic layer, we can perform sophisticated analyses to understand traffic performance. Here's an example analyzing revenue by traffic source and medium:
 
-![Alt text](visualization_example.png)
+![Alt text](./visualization_example.png)
 
 #### Key Insights from the Analysis
 
