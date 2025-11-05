@@ -56,11 +56,8 @@ logs/
 *~
 .DS_Store
 
-# Generated visualizations (optional - remove if you want to commit them)
-*.png
 *.jpg
 *.jpeg
-!../visualization_example.png
 
 # Temporary files
 *.tmp
